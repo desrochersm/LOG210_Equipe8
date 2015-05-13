@@ -2,8 +2,8 @@
 
 @using (Ajax.BeginForm("Authentification", new AjaxOptions()))
 {
-    <label for="@Html.IdFor(m => m.NomUtilisateur)">Nom d'utilisateur</label>
-    @Html.TextBoxFor(m => m.NomUtilisateur)
+    <label for="@Html.IdFor(m => m.Nom)">Nom d'utilisateur</label>
+    @Html.TextBoxFor(m => m.Nom)
 
     <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
     @Html.TextBoxFor(m => m.MotDePasse)
