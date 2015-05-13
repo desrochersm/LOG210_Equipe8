@@ -6,11 +6,11 @@ using System.Web;
 
 namespace WebResto.Models
 {
-    public class ClientModel
+    public class Client
     {   
-        public string Username { get; set; }
+        public string NomUtilisateur { get; set; }
 
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string MotDePasse { get; set; }
     }
 }

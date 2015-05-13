@@ -1,22 +1,23 @@
-﻿using System;
+﻿using SupRestoWow.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebResto.Models;
 
-namespace WebResto.Controllers
+namespace SupRestoWow.Controllers
 {
     public class CompteController : Controller
     {
-        // GET: Account
+        // GET: Compte
         [HttpGet]
         public ActionResult Authentification()
         {
             return View();
         }
 
-        public ActionResult Authentification(Client client)
+        [HttpPost]
+        public ActionResult Authentification(Compte client)
         {
             return null;
         }

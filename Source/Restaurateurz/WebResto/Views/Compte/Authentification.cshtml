@@ -1,0 +1,19 @@
+﻿@model WebResto.Models.Client
+@*todo : 
+    Check that shit pour les ressources
+    Ajouter le AJAX
+*@
+@using (Ajax.BeginForm("Authentification"))
+{
+    <form id="FormAuthentification" action="Compte/Authentification" method="post">
+        <label for="@Html.IdFor(m => m.NomUtilisateur)">Nom d'utilisateur : </label>
+        @Html.TextBoxFor(m => m.NomUtilisateur)
+
+        <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe :</label>
+        @Html.TextBoxFor(m => m.MotDePasse)
+
+        <input type="submit" value="Se connecter" />
+    </form>
+}
+    
+
