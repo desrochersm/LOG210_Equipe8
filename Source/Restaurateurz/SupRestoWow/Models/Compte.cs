@@ -8,9 +8,20 @@ namespace SupRestoWow.Models
 {
     public class Compte
     {
-        public string NomUtilisateur { get; set; }
+        public string Nom { get; set; }
 
         [DataType(DataType.Password)]
         public string MotDePasse { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime DateNaissance { get; set; }
+
+        public string Adresse { get; set; }
+
+        [DataType(DataType.EmailAddress)]
+        public string Courriel { get; set; }
+
+        [DataType(DataType.PhoneNumber)]
+        public string Telephone { get; set; }
     }
 }
