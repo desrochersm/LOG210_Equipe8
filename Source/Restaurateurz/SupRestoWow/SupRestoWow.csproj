@@ -154,8 +154,8 @@
     <Compile Include="Controllers\CompteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="DataStore\Authorized.cs" />
-    <Compile Include="DataStore\CacheSession.cs" />
+    <Compile Include="Auth\AuthorizedAttribute.cs" />
+    <Compile Include="Auth\CacheSession.cs" />
     <Compile Include="DataStore\RestaurentContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

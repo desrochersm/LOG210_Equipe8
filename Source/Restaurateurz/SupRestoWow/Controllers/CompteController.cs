@@ -1,4 +1,5 @@
 ﻿using SupRestoWow.DataStore;
+using SupRestoWow.Auth;
 using SupRestoWow.Models;
 using System;
 using System.Collections.Generic;
@@ -8,11 +9,20 @@ using System.Web.Mvc;
 
 namespace SupRestoWow.Controllers
 {
+    /// <summary>
+    /// Controleur de gestion des comptes
+    /// </summary>
     public class CompteController : Controller
     {
+        /// <summary>
+        /// Créer un nouveau compte
+        /// </summary>
+        /// <param name="compte"></param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Creer(Compte compte)
         {
+            //Va lancer une exception jusqu'à ce que l'on ait une BD
             using (RestaurentContext context = new RestaurentContext())
             {
                 bool compteExiste = context.Set<Compte>().Any(c => c.Nom == compte.Nom);
@@ -31,13 +41,22 @@ namespace SupRestoWow.Controllers
             return null;
         }
 
-        // GET: Compte
+        /// <summary>
+        /// Obtention de la vue d'authentification
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public ActionResult Authentification()
         {
+            //On gère pas pour l'instant si une personne est connectée et qu'elle revient sur l'authentification
             return View();
         }
 
+        /// <summary>
+        /// Authentifie un utilisateur
+        /// </summary>
+        /// <param name="compte">Compte à authentifier</param>
+        /// <returns></returns>
         [HttpPost]
         public ActionResult Authentification(Compte compte)
         {
@@ -52,7 +71,7 @@ namespace SupRestoWow.Controllers
                 //    return View(compte);
                 //}
 
-                Guid cleSession = CacheSession.Instance.AjouterCompte(compte);
+                Guid cleSession = CacheSession.Instance.AjouterSession(compte);
                 HttpContext.Response.Cookies.Add(new HttpCookie("session", cleSession.ToString()));
 
                 //Ajouter notre de où on s'en va!
@@ -60,15 +79,27 @@ namespace SupRestoWow.Controllers
             }
         }
 
-        [HttpGet,Authorized]
+        /// <summary>
+        /// Déconnexion d'un utilisateur
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet,AuthorizedAttribute]
         public ActionResult Deconnexion()
         {
-            //Marche pas, oops
-            HttpContext.Response.Cookies.Remove("session");
+            //Believe me or not, en changeant l'expiration du cookie c'est la seule façon de le supprimer
+            string cleSession = HttpContext.Request.Cookies["session"].Value;
+            HttpCookie cookie = new HttpCookie("session", "");
+            cookie.Expires = DateTime.Now.AddDays(-1);
+            HttpContext.Response.Cookies.Add(cookie);
+            CacheSession.Instance.RetirerSession(Guid.Parse(cleSession));
             return View("Authentification");
         }
 
-        [HttpGet,Authorized]
+        /// <summary>
+        /// C'est temporaire
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet,AuthorizedAttribute]
         public string text()
         { return "Yo dawg"; }
     }
