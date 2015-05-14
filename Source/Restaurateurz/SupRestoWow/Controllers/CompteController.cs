@@ -34,10 +34,10 @@ namespace SupRestoWow.Controllers
                 }
 
                 context.Set<Compte>().Add(compte);
-
-                //Quand on va avoir une database
-                //context.SaveChanges();
+                context.SaveChanges();
             }
+
+            //On retourne où maintenant?
             return null;
         }
 
@@ -46,7 +46,7 @@ namespace SupRestoWow.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Authentification()
+        public ActionResult Connexion()
         {
             //On gère pas pour l'instant si une personne est connectée et qu'elle revient sur l'authentification
             return View();
@@ -58,18 +58,16 @@ namespace SupRestoWow.Controllers
         /// <param name="compte">Compte à authentifier</param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Authentification(Compte compte)
+        public ActionResult Connexion(Compte compte)
         {
             using (RestaurentContext context = new RestaurentContext())
             {
-                //Décommenter lorsque l'on aura une BD!
-
-                //Compte compteBd = context.Set<Compte>().SingleOrDefault(c => compte.Nom == c.Nom);
-                //if(compteBd.MotDePasse != compte.MotDePasse)
-                //{
-                //    ModelState.AddModelError("", "Le nom de compte ou le mot de passe est invalide");
-                //    return View(compte);
-                //}
+                Compte compteBd = context.Set<Compte>().SingleOrDefault(c => compte.Nom == c.Nom);
+                if (compteBd == null || compteBd.MotDePasse != compte.MotDePasse)
+                {
+                    ModelState.AddModelError("", "Le nom de compte ou le mot de passe est invalide");
+                    return View(compte);
+                }
 
                 Guid cleSession = CacheSession.Instance.AjouterSession(compte);
                 HttpContext.Response.Cookies.Add(new HttpCookie("session", cleSession.ToString()));
@@ -83,15 +81,16 @@ namespace SupRestoWow.Controllers
         /// Déconnexion d'un utilisateur
         /// </summary>
         /// <returns></returns>
-        [HttpGet,AuthorizedAttribute]
+        [HttpGet,Authorized]
         public ActionResult Deconnexion()
         {
-            //Believe me or not, en changeant l'expiration du cookie c'est la seule façon de le supprimer
             string cleSession = HttpContext.Request.Cookies["session"].Value;
+            CacheSession.Instance.RetirerSession(Guid.Parse(cleSession));
+
+            //Believe me or not, en changeant l'expiration du cookie c'est la seule façon de le supprimer du client
             HttpCookie cookie = new HttpCookie("session", "");
             cookie.Expires = DateTime.Now.AddDays(-1);
             HttpContext.Response.Cookies.Add(cookie);
-            CacheSession.Instance.RetirerSession(Guid.Parse(cleSession));
             return View("Authentification");
         }
 
@@ -99,7 +98,7 @@ namespace SupRestoWow.Controllers
         /// C'est temporaire
         /// </summary>
         /// <returns></returns>
-        [HttpGet,AuthorizedAttribute]
+        [HttpGet,Authorized]
         public string text()
         { return "Yo dawg"; }
     }
