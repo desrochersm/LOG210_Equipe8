@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using SupRestoWow.Models;
+using System.Collections.Concurrent;
 
 namespace SupRestoWow.Auth
 {
@@ -14,7 +15,7 @@ namespace SupRestoWow.Auth
         private static readonly object @lock = new object();
         private static CacheSession cacheSession;
 
-        internal Dictionary<Guid,Compte> comptesUtilisateursParCle;
+        private readonly ConcurrentDictionary<Guid,Compte> comptesUtilisateursParCle;
 
         /// <summary>
         /// Instance de cache
@@ -25,6 +26,7 @@ namespace SupRestoWow.Auth
             {
                 if(cacheSession == null)
                 {
+                    //Afin de ne pas instancier le cache deux fois, ça pourrait être problématique.
                     lock(@lock)
                     {
                         if(cacheSession == null)
@@ -38,7 +40,7 @@ namespace SupRestoWow.Auth
 
         private CacheSession()
         {
-            comptesUtilisateursParCle = new Dictionary<Guid,Compte>();
+            comptesUtilisateursParCle = new ConcurrentDictionary<Guid,Compte>();
         }
             
         /// <summary>
@@ -49,7 +51,15 @@ namespace SupRestoWow.Auth
         internal Guid AjouterSession(Compte compte)
         {
             Guid cleSession = Guid.NewGuid();
-            comptesUtilisateursParCle.Add(cleSession, compte);
+            
+            bool sessionAjoutee = comptesUtilisateursParCle.TryAdd(cleSession, compte);
+
+            if(!sessionAjoutee)
+            {
+                //Ça ne devrait pas arrivé étant donner que c'est un petit labo..
+                throw new ApplicationException("Erreur de concurrence de connexion");
+            }
+            
             return cleSession;
         }
 
@@ -72,7 +82,8 @@ namespace SupRestoWow.Auth
         /// <param name="cleSession"></param>
         internal void RetirerSession(Guid cleSession)
         {
-            comptesUtilisateursParCle.Remove(cleSession);
+            Compte compte = null;
+            comptesUtilisateursParCle.TryRemove(cleSession, out compte);
         }
     }
 }
