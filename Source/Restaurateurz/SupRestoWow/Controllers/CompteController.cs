@@ -34,7 +34,7 @@ namespace SupRestoWow.Controllers
             //Va lancer une exception jusqu'à ce que l'on ait une BD
             using (RestaurentContext context = new RestaurentContext())
             {
-                bool compteExiste = context.Set<Compte>().Any(c => c.Nom == compte.Nom);
+                bool compteExiste = context.Set<Compte>().Any(c => c.Courriel == compte.Courriel);
 
                 if (compteExiste)
                 {
@@ -71,7 +71,7 @@ namespace SupRestoWow.Controllers
         {
             using (RestaurentContext context = new RestaurentContext())
             {
-                Compte compteBd = context.Set<Compte>().SingleOrDefault(c => compte.Nom == c.Nom);
+                Compte compteBd = context.Set<Compte>().SingleOrDefault(c => compte.Courriel == c.Courriel);
                 if (compteBd == null || compteBd.MotDePasse != compte.MotDePasse)
                 {
                     ModelState.AddModelError("", "Le nom de compte ou le mot de passe est invalide");
