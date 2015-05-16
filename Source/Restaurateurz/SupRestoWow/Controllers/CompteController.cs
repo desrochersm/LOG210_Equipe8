@@ -15,6 +15,15 @@ namespace SupRestoWow.Controllers
     public class CompteController : Controller
     {
         /// <summary>
+        /// Afficher la vue pour créer un nouveau compte
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Creer()
+        {
+            return View("CreationCompte");
+        }
+
+        /// <summary>
         /// Créer un nouveau compte
         /// </summary>
         /// <param name="compte"></param>
@@ -49,7 +58,7 @@ namespace SupRestoWow.Controllers
         public ActionResult Connexion()
         {
             //On gère pas pour l'instant si une personne est connectée et qu'elle revient sur l'authentification
-            return View();
+            return View("Authentification");
         }
 
         /// <summary>
