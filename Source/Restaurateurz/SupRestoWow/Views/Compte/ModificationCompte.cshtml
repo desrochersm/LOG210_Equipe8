@@ -1,0 +1,34 @@
+﻿@model SupRestoWow.Models.Compte
+
+@{
+    ViewBag.Title = "ModificationCompte"; 
+}
+
+<h2>Modification de votre compte</h2>
+
+@using(Html.BeginForm("Modifier", "Compte"))
+{
+
+    <label for="@Html.IdFor(m => m.Nom)">Nom complet</label>
+    @Html.TextBoxFor(m => m.Nom)
+
+    <label for="@Html.IdFor(m => m.Courriel)">Courriel</label>
+    @Html.TextBoxFor(m => m.Courriel)
+
+
+    <label for="@Html.IdFor(m => m.Adresse)">Adresse</label>
+    @Html.TextBoxFor(m => m.Adresse)
+
+
+    <label for="@Html.IdFor(m => m.Telephone)">Numéro de téléphone</label>
+    @Html.TextBoxFor(m => m.Telephone)
+
+
+    <label for="@Html.IdFor(m => m.DateNaissance)">Date de naissance</label>
+    @Html.TextBoxFor(m => m.DateNaissance)
+
+    <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
+    @Html.TextBoxFor(m => m.MotDePasse)
+
+<input type="submit" />    
+}
