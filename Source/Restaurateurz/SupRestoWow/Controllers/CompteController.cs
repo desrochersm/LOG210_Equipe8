@@ -51,6 +51,47 @@ namespace SupRestoWow.Controllers
         }
 
         /// <summary>
+        /// Afficher la vue pour modifier un compte
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Modifier()
+        {
+            return View("ModifierCompte");
+        }
+
+        /// <summary>
+        /// Modifier un compte
+        /// </summary>
+        /// <param name="compte"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Modifier(Compte compte)
+        {
+            Compte compteInBD;
+            //Va lancer une exception jusqu'à ce que l'on ait une BD
+            using (RestaurentContext context = new RestaurentContext())
+            {
+                compteInBD = context.Set<Compte>().Where(c => c.Courriel == compte.Courriel).First();
+            }
+
+            if(compteInBD == null){
+                ModelState.AddModelError("", "Le compte n'a pas été trouvé dans la BD");
+                return View(compte);
+            }
+
+            compteInBD = compte;
+
+            using (RestaurentContext context = new RestaurentContext())
+            {
+                context.Entry(compteInBD).State = System.Data.EntityState.Modified;
+                context.SaveChanges();
+            }
+
+            //On retourne où maintenant?
+            return null;
+        }
+
+        /// <summary>
         /// Obtention de la vue d'authentification
         /// </summary>
         /// <returns></returns>
