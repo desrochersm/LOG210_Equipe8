@@ -23,5 +23,7 @@ namespace SupRestoWow.Models
 
         [DataType(DataType.PhoneNumber)]
         public string Telephone { get; set; }
+
+        public int Id { get; set; }
     }
 }

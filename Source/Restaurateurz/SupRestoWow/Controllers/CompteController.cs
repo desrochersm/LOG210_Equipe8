@@ -83,7 +83,7 @@ namespace SupRestoWow.Controllers
 
             using (RestaurentContext context = new RestaurentContext())
             {
-                context.Entry(compteInBD).State = System.Data.EntityState.Modified;
+                context.Entry(compteInBD).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
 
@@ -148,8 +148,11 @@ namespace SupRestoWow.Controllers
         /// C'est temporaire
         /// </summary>
         /// <returns></returns>
-        [HttpGet,Authorized]
+        [HttpGet]
         public string text()
-        { return "Yo dawg"; }
+        {
+            RestaurentContext c = new RestaurentContext();
+            bool asd = c.Database.Exists();
+            return "Yo dawg"; }
     }
 }
