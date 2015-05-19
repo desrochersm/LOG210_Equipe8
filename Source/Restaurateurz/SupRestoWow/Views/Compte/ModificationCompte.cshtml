@@ -9,26 +9,54 @@
 @using(Html.BeginForm("Modifier", "Compte"))
 {
 
-    <label for="@Html.IdFor(m => m.Nom)">Nom complet</label>
-    @Html.TextBoxFor(m => m.Nom)
+   <table>
+        <tr>
+            <th>
+                <label for="@Html.IdFor(m => m.Nom)">Nom complet</label>
+            </th>
+            <td>@Html.TextBoxFor(m => m.Nom)
+            </td>
+        </tr>
 
-    <label for="@Html.IdFor(m => m.Courriel)">Courriel</label>
-    @Html.TextBoxFor(m => m.Courriel)
+        <tr>
+            <th>
+                <label for="@Html.IdFor(m => m.Courriel)">Courriel</label>
+            </th>
+            <td>@Html.TextBoxFor(m => m.Courriel)
+            </td>
+        </tr>
 
+        <tr>
+            <th>
+                <label for="@Html.IdFor(m => m.Adresse)">Adresse</label>
+            </th>
+            <td>@Html.TextBoxFor(m => m.Adresse)
+            </td>
+        </tr>
 
-    <label for="@Html.IdFor(m => m.Adresse)">Adresse</label>
-    @Html.TextBoxFor(m => m.Adresse)
+        <tr>
+            <th>
+                <label for="@Html.IdFor(m => m.Telephone)">Numéro de téléphone</label>
+            </th>
+            <td>@Html.TextBoxFor(m => m.Telephone)
+            </td>
+        </tr>
 
+        <tr>
+            <th>
+                <label for="@Html.IdFor(m => m.DateNaissance)">Date de naissance</label>
+            </th>
+            <td>@Html.TextBoxFor(m => m.DateNaissance)
+            </td>
+        </tr>
+        <tr>
+            <th>
+                <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
+            </th>
+            <td>@Html.TextBoxFor(m => m.MotDePasse)
+            </td>
+        </tr>
+    </table>
 
-    <label for="@Html.IdFor(m => m.Telephone)">Numéro de téléphone</label>
-    @Html.TextBoxFor(m => m.Telephone)
-
-
-    <label for="@Html.IdFor(m => m.DateNaissance)">Date de naissance</label>
-    @Html.TextBoxFor(m => m.DateNaissance)
-
-    <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
-    @Html.TextBoxFor(m => m.MotDePasse)
-
-<input type="submit" />    
+<input type="submit" value="Enregistrer"/>    
 }
