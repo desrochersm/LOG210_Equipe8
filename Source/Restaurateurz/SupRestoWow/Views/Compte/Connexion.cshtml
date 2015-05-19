@@ -1,6 +1,6 @@
 ﻿@model SupRestoWow.Models.Compte
 
-@using (Ajax.BeginForm("Authentification", new AjaxOptions()))
+@using (Ajax.BeginForm("Connexion", new AjaxOptions()))
 {
     <label for="@Html.IdFor(m => m.Courriel)">Courriel</label>
     @Html.TextBoxFor(m => m.Courriel)

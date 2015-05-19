@@ -56,7 +56,7 @@ namespace SupRestoWow.Controllers
         /// <returns></returns>
         public ActionResult Modifier()
         {
-            return View("ModifierCompte");
+            return View();
         }
 
         /// <summary>
@@ -64,26 +64,23 @@ namespace SupRestoWow.Controllers
         /// </summary>
         /// <param name="compte"></param>
         /// <returns></returns>
-        [HttpPost]
+        [HttpPost,Authorized]
         public ActionResult Modifier(Compte compte)
         {
-            Compte compteInBD;
+            Compte compteCourant = CacheSession.Instance.ObtenirSession(Guid.Parse(this.HttpContext.Request.Cookies["session"].Value));
             //Va lancer une exception jusqu'à ce que l'on ait une BD
-            using (RestaurentContext context = new RestaurentContext())
-            {
-                compteInBD = context.Set<Compte>().Where(c => c.Courriel == compte.Courriel).First();
-            }
-
-            if(compteInBD == null){
-                ModelState.AddModelError("", "Le compte n'a pas été trouvé dans la BD");
-                return View(compte);
-            }
-
-            compteInBD = compte;
 
             using (RestaurentContext context = new RestaurentContext())
             {
-                context.Entry(compteInBD).State = System.Data.Entity.EntityState.Modified;
+                var compteBd = context.Set<Compte>().SingleOrDefault(c => c.Id == compteCourant.Id);
+
+                if (compteBd == null)
+                {
+                    throw new ApplicationException("Le compte n'a pas été trouvé dans le database");
+                }
+
+                compteBd = compteCourant;
+                //context.Entry(compteCourant).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
 
@@ -99,7 +96,7 @@ namespace SupRestoWow.Controllers
         public ActionResult Connexion()
         {
             //On gère pas pour l'instant si une personne est connectée et qu'elle revient sur l'authentification
-            return View("Authentification");
+            return View();
         }
 
         /// <summary>
@@ -119,7 +116,7 @@ namespace SupRestoWow.Controllers
                     return View(compte);
                 }
 
-                Guid cleSession = CacheSession.Instance.AjouterSession(compte);
+                Guid cleSession = CacheSession.Instance.AjouterSession(compteBd);
                 HttpContext.Response.Cookies.Add(new HttpCookie("session", cleSession.ToString()));
 
                 //Ajouter notre de où on s'en va!
@@ -141,7 +138,7 @@ namespace SupRestoWow.Controllers
             HttpCookie cookie = new HttpCookie("session", "");
             cookie.Expires = DateTime.Now.AddDays(-1);
             HttpContext.Response.Cookies.Add(cookie);
-            return View("Authentification");
+            return View("Connexion");
         }
 
         /// <summary>
