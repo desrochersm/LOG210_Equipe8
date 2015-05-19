@@ -79,7 +79,14 @@ namespace SupRestoWow.Controllers
                     throw new ApplicationException("Le compte n'a pas été trouvé dans le database");
                 }
 
-                compteBd = compteCourant;
+                //Temporaire
+                compteBd.DateNaissance = compte.DateNaissance;
+                compteBd.Adresse = compte.Adresse;
+                compteBd.Courriel = compte.Courriel;
+                compteBd.MotDePasse = compte.MotDePasse;
+                compteBd.Nom = compte.Nom;
+                compteBd.Telephone = compte.Telephone;
+                
                 //context.Entry(compteCourant).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
             }
