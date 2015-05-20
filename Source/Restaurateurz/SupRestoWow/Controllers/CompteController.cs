@@ -133,7 +133,7 @@ namespace SupRestoWow.Controllers
                 HttpContext.Response.Cookies.Add(new HttpCookie("session", cleSession.ToString()));
 
                 //Ajouter notre de où on s'en va!
-                return View();//Redirect("");
+                return RedirectToAction("Index","Home");//Redirect("");
             }
         }
 
