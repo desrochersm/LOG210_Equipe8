@@ -10,7 +10,7 @@ namespace SupRestoWow.Auth
     /// <summary>
     /// Cache statique de session
     /// </summary>
-    internal class CacheSession
+    public class CacheSession
     {
         private static readonly object @lock = new object();
         private static CacheSession cacheSession;
@@ -20,7 +20,7 @@ namespace SupRestoWow.Auth
         /// <summary>
         /// Instance de cache
         /// </summary>
-        internal static CacheSession Instance 
+        public static CacheSession Instance 
         {
             get
             {
@@ -48,7 +48,7 @@ namespace SupRestoWow.Auth
         /// </summary>
         /// <param name="compte"></param>
         /// <returns></returns>
-        internal Guid AjouterSession(Compte compte)
+        public Guid AjouterSession(Compte compte)
         {
             Guid cleSession = Guid.NewGuid();
             
@@ -68,7 +68,7 @@ namespace SupRestoWow.Auth
         /// </summary>
         /// <param name="cleSession"></param>
         /// <returns></returns>
-        internal Compte ObtenirSession(Guid cleSession)
+        public Compte ObtenirSession(Guid cleSession)
         {
             Compte compte;
             bool compteExiste = comptesUtilisateursParCle.TryGetValue(cleSession, out compte);
@@ -80,7 +80,7 @@ namespace SupRestoWow.Auth
         /// Retirer une session du cache
         /// </summary>
         /// <param name="cleSession"></param>
-        internal void RetirerSession(Guid cleSession)
+        public void RetirerSession(Guid cleSession)
         {
             Compte compte = null;
             comptesUtilisateursParCle.TryRemove(cleSession, out compte);

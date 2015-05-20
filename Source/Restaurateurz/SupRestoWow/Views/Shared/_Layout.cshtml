@@ -8,7 +8,23 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    
+    @{
+        HttpCookie cookie = Request.Cookies["session"];
+        IHtmlString header = null;
+        if (cookie != null)
+        {
+            Guid cleSession = Guid.Parse(cookie.Value);
+            SupRestoWow.Models.Compte compte = SupRestoWow.Auth.CacheSession.Instance.ObtenirSession(cleSession);
+            if (compte != null)
+            {
+                header = Html.Raw("<a href=\"#\" disabled><li>Bonjour, " + compte.Nom + "</li></a>");    
+            }
+            else
+            {
+                SupRestoWow.Auth.CacheSession.Instance.RetirerSession(cleSession);   
+            }
+        }
+    }
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -24,6 +40,7 @@
                     <li>@Html.ActionLink("Accueil", "Index", "Home", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Connexion", "Connexion", "Compte/Connexion", new { area = "" }, null)</li>
                     <li>@Html.ActionLink("Inscription", "Creer", "Compte/Creer", new { area = "" }, null)</li>
+                    @header
                 </ul>
             </div>
         </div>
