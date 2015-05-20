@@ -59,7 +59,8 @@ namespace SupRestoWow.Controllers
         /// <returns></returns>
         public ActionResult Modifier()
         {
-            return View();
+            //Afficher la page avec les informations du compte
+            return View(ObtenirCompteCourant());
         }
 
         /// <summary>
@@ -72,8 +73,8 @@ namespace SupRestoWow.Controllers
         {
             if (!ModelState.IsValid)
                 return View("Modifier", compte);
-            
-            Compte compteCourant = CacheSession.Instance.ObtenirSession(Guid.Parse(this.HttpContext.Request.Cookies["session"].Value));
+
+            Compte compteCourant = ObtenirCompteCourant();
             //Va lancer une exception jusqu'à ce que l'on ait une BD
 
             using (RestaurentContext context = new RestaurentContext())
@@ -99,6 +100,15 @@ namespace SupRestoWow.Controllers
 
             //On retourne où maintenant?
             return View("ConfirmationCompte", compte);
+        }
+
+        /// <summary>
+        /// Obtenir le compte courant qui est dans le cache
+        /// </summary>
+        /// <returns></returns>
+        private Compte ObtenirCompteCourant()
+        { 
+            return CacheSession.Instance.ObtenirSession(Guid.Parse(this.HttpContext.Request.Cookies["session"].Value));
         }
 
         /// <summary>
