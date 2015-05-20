@@ -58,7 +58,7 @@
             <th>
                 <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
             </th>
-            <td>@Html.TextBoxFor(m => m.MotDePasse)
+            <td>@Html.PasswordFor(m => m.MotDePasse)
                 @Html.ValidationMessageFor(m => m.MotDePasse)
             </td>
         </tr>
