@@ -15,6 +15,7 @@
                 <label for="@Html.IdFor(m => m.Nom)">Nom complet</label>
             </th>
             <td>@Html.TextBoxFor(m => m.Nom)
+                @Html.ValidationMessageFor(m => m.Nom)
             </td>
         </tr>
 
@@ -23,6 +24,7 @@
                 <label for="@Html.IdFor(m => m.Courriel)">Courriel</label>
             </th>
             <td>@Html.TextBoxFor(m => m.Courriel)
+                @Html.ValidationMessageFor(m => m.Courriel)
             </td>
         </tr>
 
@@ -31,6 +33,7 @@
                 <label for="@Html.IdFor(m => m.Adresse)">Adresse</label>
             </th>
             <td>@Html.TextBoxFor(m => m.Adresse)
+                @Html.ValidationMessageFor(m => m.Adresse)
             </td>
         </tr>
 
@@ -39,6 +42,7 @@
                 <label for="@Html.IdFor(m => m.Telephone)">Numéro de téléphone</label>
             </th>
             <td>@Html.TextBoxFor(m => m.Telephone)
+                @Html.ValidationMessageFor(m => m.Telephone)
             </td>
         </tr>
 
@@ -47,6 +51,7 @@
                 <label for="@Html.IdFor(m => m.DateNaissance)">Date de naissance</label>
             </th>
             <td>@Html.TextBoxFor(m => m.DateNaissance)
+                @Html.ValidationMessageFor(m => m.DateNaissance)
             </td>
         </tr>
         <tr>
@@ -54,6 +59,7 @@
                 <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
             </th>
             <td>@Html.TextBoxFor(m => m.MotDePasse)
+                @Html.ValidationMessageFor(m => m.MotDePasse)
             </td>
         </tr>
     </table>

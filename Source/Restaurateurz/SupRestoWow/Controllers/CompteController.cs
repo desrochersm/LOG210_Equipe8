@@ -29,8 +29,11 @@ namespace SupRestoWow.Controllers
         /// <param name="compte"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult Creer(Compte compte)
+        public ActionResult Creer([Bind(Exclude = "Id")]Compte compte) //Todo: Voir s'il n'aurait pas une meilleure faire!
         {
+            if (!ModelState.IsValid) 
+                return View("CreationCompte", compte);
+                
             //Va lancer une exception jusqu'à ce que l'on ait une BD
             using (RestaurentContext context = new RestaurentContext())
             {
@@ -67,6 +70,9 @@ namespace SupRestoWow.Controllers
         [HttpPost,Authorized]
         public ActionResult Modifier(Compte compte)
         {
+            if (!ModelState.IsValid)
+                return View("Modifier", compte);
+            
             Compte compteCourant = CacheSession.Instance.ObtenirSession(Guid.Parse(this.HttpContext.Request.Cookies["session"].Value));
             //Va lancer une exception jusqu'à ce que l'on ait une BD
 
