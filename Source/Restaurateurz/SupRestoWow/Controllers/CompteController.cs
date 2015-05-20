@@ -57,6 +57,7 @@ namespace SupRestoWow.Controllers
         /// Afficher la vue pour modifier un compte
         /// </summary>
         /// <returns></returns>
+        [Authorized]
         public ActionResult Modifier()
         {
             //Afficher la page avec les informations du compte
