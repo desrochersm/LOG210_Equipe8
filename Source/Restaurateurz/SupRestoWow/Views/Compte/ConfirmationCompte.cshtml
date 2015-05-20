@@ -1,0 +1,52 @@
+﻿@model SupRestoWow.Models.Compte
+
+<h1>Confirmation des informations de votre compte</h1>
+
+<table>
+    <tr>
+        <th>
+            <label for="@Html.IdFor(m => m.Nom)">Nom complet</label>
+        </th>
+        <td>@Html.TextBoxFor(m => m.Nom)
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            <label for="@Html.IdFor(m => m.Courriel)">Courriel</label>
+        </th>
+        <td>@Html.TextBoxFor(m => m.Courriel)
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            <label for="@Html.IdFor(m => m.Adresse)">Adresse</label>
+        </th>
+        <td>@Html.TextBoxFor(m => m.Adresse)
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            <label for="@Html.IdFor(m => m.Telephone)">Numéro de téléphone</label>
+        </th>
+        <td>@Html.TextBoxFor(m => m.Telephone)
+        </td>
+    </tr>
+
+    <tr>
+        <th>
+            <label for="@Html.IdFor(m => m.DateNaissance)">Date de naissance</label>
+        </th>
+        <td>@Html.TextBoxFor(m => m.DateNaissance)
+        </td>
+    </tr>
+    <tr>
+        <th>
+            <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
+        </th>
+        <td>@Html.TextBoxFor(m => m.MotDePasse)
+        </td>
+    </tr>
+</table>
