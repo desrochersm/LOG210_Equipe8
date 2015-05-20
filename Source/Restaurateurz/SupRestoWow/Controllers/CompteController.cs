@@ -95,8 +95,9 @@ namespace SupRestoWow.Controllers
                 compteBd.Nom = compte.Nom;
                 compteBd.Telephone = compte.Telephone;
                 
-                //context.Entry(compteCourant).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
+
+                CacheSession.Instance.Remplacer(compteBd,ObtenirCleSessionCourante());
             }
 
             //On retourne où maintenant?
@@ -109,7 +110,16 @@ namespace SupRestoWow.Controllers
         /// <returns></returns>
         private Compte ObtenirCompteCourant()
         { 
-            return CacheSession.Instance.ObtenirSession(Guid.Parse(this.HttpContext.Request.Cookies["session"].Value));
+            return CacheSession.Instance.Obtenir(ObtenirCleSessionCourante());
+        }
+
+        /// <summary>
+        /// Obtneir la clé de session courante
+        /// </summary>
+        /// <returns></returns>
+        private Guid ObtenirCleSessionCourante()
+        {
+            return Guid.Parse(this.HttpContext.Request.Cookies["session"].Value);
         }
 
         /// <summary>
@@ -140,7 +150,7 @@ namespace SupRestoWow.Controllers
                     return View(compte);
                 }
 
-                Guid cleSession = CacheSession.Instance.AjouterSession(compteBd);
+                Guid cleSession = CacheSession.Instance.Ajouter(compteBd);
                 HttpContext.Response.Cookies.Add(new HttpCookie("session", cleSession.ToString()));
 
                 //Ajouter notre de où on s'en va!
@@ -156,7 +166,7 @@ namespace SupRestoWow.Controllers
         public ActionResult Deconnexion()
         {
             string cleSession = HttpContext.Request.Cookies["session"].Value;
-            CacheSession.Instance.RetirerSession(Guid.Parse(cleSession));
+            CacheSession.Instance.Retirer(Guid.Parse(cleSession));
 
             //Believe me or not, en changeant l'expiration du cookie c'est la seule façon de le supprimer du client
             HttpCookie cookie = new HttpCookie("session", "");

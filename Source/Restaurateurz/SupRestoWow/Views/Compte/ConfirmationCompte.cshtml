@@ -7,7 +7,7 @@
         <th>
             <label for="@Html.IdFor(m => m.Nom)">Nom complet</label>
         </th>
-        <td>@Html.TextBoxFor(m => m.Nom)
+        <td>@Model.Nom
         </td>
     </tr>
 
@@ -15,7 +15,7 @@
         <th>
             <label for="@Html.IdFor(m => m.Courriel)">Courriel</label>
         </th>
-        <td>@Html.TextBoxFor(m => m.Courriel)
+        <td>@Model.Courriel
         </td>
     </tr>
 
@@ -23,7 +23,7 @@
         <th>
             <label for="@Html.IdFor(m => m.Adresse)">Adresse</label>
         </th>
-        <td>@Html.TextBoxFor(m => m.Adresse)
+        <td>@Model.Adresse
         </td>
     </tr>
 
@@ -31,7 +31,7 @@
         <th>
             <label for="@Html.IdFor(m => m.Telephone)">Numéro de téléphone</label>
         </th>
-        <td>@Html.TextBoxFor(m => m.Telephone)
+        <td>@Model.Telephone
         </td>
     </tr>
 
@@ -39,14 +39,14 @@
         <th>
             <label for="@Html.IdFor(m => m.DateNaissance)">Date de naissance</label>
         </th>
-        <td>@Html.TextBoxFor(m => m.DateNaissance)
+        <td>@Model.DateNaissance
         </td>
     </tr>
     <tr>
         <th>
             <label for="@Html.IdFor(m => m.MotDePasse)">Mot de passe</label>
         </th>
-        <td>@Html.TextBoxFor(m => m.MotDePasse)
+        <td>@Model.MotDePasse
         </td>
     </tr>
 </table>

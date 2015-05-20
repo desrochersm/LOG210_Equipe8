@@ -48,7 +48,7 @@ namespace SupRestoWow.Auth
         /// </summary>
         /// <param name="compte"></param>
         /// <returns></returns>
-        public Guid AjouterSession(Compte compte)
+        public Guid Ajouter(Compte compte)
         {
             Guid cleSession = Guid.NewGuid();
             
@@ -64,11 +64,27 @@ namespace SupRestoWow.Auth
         }
 
         /// <summary>
+        /// Ajouter un compte en session
+        /// </summary>
+        /// <param name="compte"></param>
+        /// <returns></returns>
+        public void Remplacer(Compte compte, Guid cle)
+        {
+            bool sessionAjoutee = comptesUtilisateursParCle.TryUpdate(cle, compte, comptesUtilisateursParCle[cle]);
+
+            if (!sessionAjoutee)
+            {
+                //Ça ne devrait pas arrivé étant donner que c'est un petit labo..
+                throw new ApplicationException("Erreur de concurrence de connexion");
+            }
+        }
+
+        /// <summary>
         /// Obtenir un compte en session
         /// </summary>
         /// <param name="cleSession"></param>
         /// <returns></returns>
-        public Compte ObtenirSession(Guid cleSession)
+        public Compte Obtenir(Guid cleSession)
         {
             Compte compte;
             bool compteExiste = comptesUtilisateursParCle.TryGetValue(cleSession, out compte);
@@ -80,7 +96,7 @@ namespace SupRestoWow.Auth
         /// Retirer une session du cache
         /// </summary>
         /// <param name="cleSession"></param>
-        public void RetirerSession(Guid cleSession)
+        public void Retirer(Guid cleSession)
         {
             Compte compte = null;
             comptesUtilisateursParCle.TryRemove(cleSession, out compte);
