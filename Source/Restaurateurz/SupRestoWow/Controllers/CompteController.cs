@@ -50,7 +50,7 @@ namespace SupRestoWow.Controllers
             }
 
             //On retourne où maintenant?
-            return null;
+            return View("ConfirmationCompte", compte);
         }
 
         /// <summary>
@@ -98,7 +98,7 @@ namespace SupRestoWow.Controllers
             }
 
             //On retourne où maintenant?
-            return null;
+            return View("ConfirmationCompte", compte);
         }
 
         /// <summary>

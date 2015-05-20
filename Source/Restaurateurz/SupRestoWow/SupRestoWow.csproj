@@ -249,6 +249,7 @@
     <Content Include="Views\Compte\CreationCompte.cshtml" />
     <Content Include="Views\Compte\Modifier.cshtml" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
+    <Content Include="Views\Compte\ConfirmationCompte.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
