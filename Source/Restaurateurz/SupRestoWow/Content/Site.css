@@ -19,3 +19,10 @@ textarea {
 span.field-validation-error {
     color:red;
 }
+
+div.profile {
+    position:absolute;
+    top:15px;
+    right:20px;
+    color:white;
+}
