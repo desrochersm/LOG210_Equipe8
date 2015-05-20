@@ -14,14 +14,14 @@
         if (cookie != null)
         {
             Guid cleSession = Guid.Parse(cookie.Value);
-            SupRestoWow.Models.Compte compte = SupRestoWow.Auth.CacheSession.Instance.ObtenirSession(cleSession);
+            SupRestoWow.Models.Compte compte = SupRestoWow.Auth.CacheSession.Instance.Obtenir(cleSession);
             if (compte != null)
             {
                 header = Html.Raw("<a href=\"#\" disabled><li>Bonjour, " + compte.Nom + "</li></a>");    
             }
             else
             {
-                SupRestoWow.Auth.CacheSession.Instance.RetirerSession(cleSession);   
+                SupRestoWow.Auth.CacheSession.Instance.Retirer(cleSession);   
             }
         }
     }
