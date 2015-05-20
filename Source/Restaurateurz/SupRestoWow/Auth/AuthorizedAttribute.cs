@@ -18,7 +18,7 @@ namespace SupRestoWow.Auth
             if (compte == null)
             {
                 //Peut-être qu'il faudrait faire de quoi avec ça. lol
-                throw new ApplicationException("T'es pas authentifié esti de chienne (oops).");
+                throw new ApplicationException("T'es pas authentifié.");
             }
 
             base.OnActionExecuting(filterContext);
